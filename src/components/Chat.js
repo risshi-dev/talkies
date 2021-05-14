@@ -5,14 +5,14 @@ import firebase from "firebase";
 import Mess from "./Mess";
 import juntos from './juntos.mp3'
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import SendIcon from "@material-ui/icons/Send";
+import {LinearProgress} from '@material-ui/core'
 const CssTextField = withStyles({
 	root: {
 		"& label.Mui-focused": {
-			color: "#ff3f3f",
+			color: "#4429fb",
 		},
 		"& .MuiInput-underline:after": {
-			borderBottomColor: "#ff3f3f",
+			borderBottomColor: "#4429fb",
 		},
 	},
 })(TextField);
@@ -33,9 +33,9 @@ const classes = useStyles();
 
 	const [input, setInput] = useState("");
 	const [messages, setMess] = useState(null);
+	const [id, setId] = useState(JSON.parse(localStorage.getItem("login")).id);
 
 	useEffect(()=>{
-		const id = JSON.parse(localStorage.getItem('login')).id
 
 		db
 		.collection(id)
@@ -49,13 +49,13 @@ const classes = useStyles();
 
 	const sendMess = (event) => {
 		event.preventDefault();
-		const id = JSON.parse(localStorage.getItem("login")).id;
+
 		db.collection(id).add({
 			text: input,
 			username: JSON.parse(localStorage.getItem("login")).name,
 			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 		});
-		document.getElementById("yup").play();
+		document.getElementById("sent").play();
 		setInput("");
 	};
 
@@ -69,35 +69,10 @@ const classes = useStyles();
 		<div className="chatContainer">
 			<div className="headerContainer">
 				<div className="header">Talkies</div>
-				<button className="button height" onClick={Exit}>
+				<button className="button height Exitbutton" onClick={Exit}>
 					Exit Room
 				</button>
 			</div>
-			<form onSubmit={(event) => sendMess(event)}>
-				<div style={{display:"flex", alignItems:'flex-end'}}><CssTextField
-					id="standard-basic"
-					label="Enter Message"
-					value={input}
-					onChange={(event) => {
-						setInput(event.target.value);
-					}}
-				/>
-				<SendIcon
-					className="button"
-					disabled={input === ""}
-					type="submit"
-					style={{
-						fontSize: "2.5rem",
-						marginLeft: "1vw",
-						cursor: "pointer",
-					}}
-				>
-					<audio id="yup">
-						<source src={juntos}></source>
-					</audio>
-				</SendIcon></div>
-				
-			</form>
 			<div className="chatSub">
 				<div className="messages">
 					{messages.map((message, index) => (
@@ -105,9 +80,37 @@ const classes = useStyles();
 					))}
 				</div>
 			</div>
+			<form onSubmit={(event) => sendMess(event)}>
+				<div style={{ display: "flex", alignItems: "flex-end" }}>
+					<CssTextField
+						id="standard-basic"
+						label="Enter Message"
+						value={input}
+						required
+						style={{width:"55vw"}}
+						onChange={(event) => {
+							setInput(event.target.value);
+						}}
+					/>
+					<button
+						className="button"
+						disabled={input === ""}
+						type="submit"
+					>
+						<audio id="sent" src={juntos}>
+						</audio>
+						Send
+					</button>
+				</div>
+			</form>
 		</div>
 	) : (
-		<div>Loading...</div>
+		<div>
+			<div className="headerContainer">
+				<div className="header">Talkies</div>
+			</div>
+			<LinearProgress color="secondary" />.
+		</div>
 	);
 };
 

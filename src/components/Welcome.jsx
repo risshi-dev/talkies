@@ -3,14 +3,14 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import PersonIcon from "@material-ui/icons/Person";
-
+import chat from './chat.png'
 const CssTextField = withStyles({
 	root: {
 		"& label.Mui-focused": {
-			color: "#ff3f3f",
+			color: "#4429fb",
 		},
 		"& .MuiInput-underline:after": {
-			borderBottomColor: "#ff3f3f",
+			borderBottomColor: "#4429fb",
 		},
 
     //     "& .MuiFormLabel-root" : {
@@ -54,12 +54,15 @@ const handleUser = () => {
 						<div className="header">Talkies</div>
 
 						<div className="formContainer">
+							
 							<form
 								id="formSub"
 								onSubmit={(e) => {
 									handleUser();
 								}}
-							>
+							><div>
+								<img src={chat} alt='logo' />
+							</div>
 								<div className="field">
 									<PersonIcon
 										style={{ fontSize: "2.5rem", marginRight: "1vw" }}
