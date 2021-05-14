@@ -109,7 +109,7 @@ const classes = useStyles();
 			<div className="headerContainer">
 				<div className="header">Talkies</div>
 			</div>
-			<LinearProgress color="secondary" />.
+			<LinearProgress color="primary" />.
 		</div>
 	);
 };
