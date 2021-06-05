@@ -51,8 +51,7 @@ const handleUser = () => {
 											
     return (
 					<div className="welcomeScreen">
-						<div className="header">Talkies</div>
-
+						<div className="header">TALKIES</div>
 						<div className="formContainer">
 							
 							<form
