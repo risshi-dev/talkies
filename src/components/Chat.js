@@ -6,6 +6,7 @@ import Mess from "./Mess";
 import juntos from './juntos.mp3'
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {LinearProgress} from '@material-ui/core'
+import { useLocation } from "react-router-dom";
 const CssTextField = withStyles({
 	root: {
 		"& label.Mui-focused": {
@@ -31,12 +32,14 @@ const useStyles = makeStyles((theme) => ({
 const Chat = ({history}) => {
 const classes = useStyles();
 
+const p = useLocation().state
+
 	const [input, setInput] = useState("");
 	const [messages, setMess] = useState(null);
 	const [id, setId] = useState(JSON.parse(localStorage.getItem("login")).id);
 
 	useEffect(()=>{
-
+console.log(p)
 		db
 		.collection(id)
 		.orderBy("timestamp", "desc")

@@ -4,6 +4,8 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import PersonIcon from "@material-ui/icons/Person";
 import chat from './chat.png'
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 const CssTextField = withStyles({
 	root: {
 		"& label.Mui-focused": {
@@ -31,6 +33,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Welcome = ({history}) => {
+
+	const p = useLocation().state
+
+	useEffect(() => {
+		console.log(p)
+	}, [])
 
      const classes = useStyles();
 
